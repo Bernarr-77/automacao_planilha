@@ -1,4 +1,5 @@
 import sqlite3
+from typing import List
 
 def start_table():
     con = sqlite3.connect("agendamentos.db")
@@ -16,3 +17,12 @@ def start_table():
     cur.execute(sql)
     con.commit()
     con.close()
+
+def get_agendamentos(hora_inicio: str, hora_fim: str) -> List:
+    with sqlite3.connect("agendamentos.db") as con:
+        cur = con.cursor()
+        sql = """
+        SELECT * FROM agendamentos WHERE data_hora >= ? AND data_hora <= ?
+        """
+        cur.execute(sql, (hora_inicio, hora_fim))
+        return cur.fetchall()
