@@ -26,3 +26,12 @@ def get_agendamentos(hora_inicio: str, hora_fim: str) -> List:
         """
         cur.execute(sql, (hora_inicio, hora_fim))
         return cur.fetchall()
+
+def get_all():
+    with sqlite3.connect("agendamentos.db") as con:
+        cur = con.cursor()
+        sql = """
+        SELECT * FROM agendamentos
+        """
+        cur.execute(sql)
+        return cur.fetchall()
