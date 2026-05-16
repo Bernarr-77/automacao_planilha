@@ -3,6 +3,7 @@ from openpyxl.styles import PatternFill, Font
 from typing import List
 from datetime import datetime 
 from database import get_all
+from io import BytesIO
 
 def gerar_relatorio(dados: List ):
     wb = Workbook()
@@ -34,7 +35,10 @@ def gerar_relatorio(dados: List ):
         celula_valor.number_format = '"R$ "#,##0.00'
 
     planilha.auto_filter.ref = planilha.dimensions
-    wb.save("test.xlsx")
+    fluxo = BytesIO()
+    wb.save(fluxo)
+    fluxo.seek(0)
+    return fluxo
 
 if __name__ == "__main__":
     todos_dados = get_all()
