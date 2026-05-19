@@ -40,6 +40,3 @@ def gerar_relatorio(dados: List ):
     fluxo.seek(0)
     return fluxo
 
-if __name__ == "__main__":
-    todos_dados = get_all()
-    gerar_relatorio(todos_dados)
