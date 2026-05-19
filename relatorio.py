@@ -34,6 +34,15 @@ def gerar_relatorio(dados: List ):
         celula_valor = planilha.cell(row=linha, column=4)
         celula_valor.number_format = '"R$ "#,##0.00'
 
+    ultima_linha_dados = planilha.max_row 
+    linha_total = ultima_linha_dados + 1
+
+    planilha.cell(row=linha_total, column=3).value = "Total:"
+    
+    celula_soma = planilha.cell(row=linha_total, column=4)
+    celula_soma.value = f"=SUM(D2:D{ultima_linha_dados})"
+    celula_soma.number_format = 'R$ #,##0.00'
+
     planilha.auto_filter.ref = planilha.dimensions
     fluxo = BytesIO()
     wb.save(fluxo)
